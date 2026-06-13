@@ -125,10 +125,18 @@
   /* ── ПОЯВЛЕНИЕ ТЕКСТА И ПЛАШЕК НА СКРОЛЛЕ ── */
   gsap.utils.toArray(".io-reveal").forEach(function (el) {
     gsap.set(el, { opacity: 1, y: 0 });            // снимаем стартовое скрытие из CSS
-    gsap.from(el, {
-      opacity: 0, y: 48, duration: 1.15, ease: "expo.out",
-      scrollTrigger: { trigger: el, start: "top 88%" }
-    });
+    if (showcase) {
+      // showcase: привязываем к позиции скролла — детерминированно для покадрового рендера
+      gsap.fromTo(el, { opacity: 0, y: 48 }, {
+        opacity: 1, y: 0, ease: "power2.out",
+        scrollTrigger: { trigger: el, start: "top 92%", end: "top 62%", scrub: true }
+      });
+    } else {
+      gsap.from(el, {
+        opacity: 0, y: 48, duration: 1.15, ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" }
+      });
+    }
   });
 
   /* ── пересчёт после загрузки шрифтов/картинок ── */
