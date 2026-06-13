@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Академия «Амрита» — кундалини йога, целительство, ченнелинг | Алёна Коробова</title>
+  <meta name="description" content="Академия «Амрита» — пространство исцеления и духовного развития: кундалини йога, целительство, ченнелинг, космоэнергетика, ретриты для женщин. Основатель — Алёна Коробова." />
+  <meta name="theme-color" content="#2B2118" />
+
+  <!-- Bodoni Moda (дисплей) + Jost (текст/ярлыки) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" />
+
+  <link rel="stylesheet" href="css/styles.css?v=13" />
+</head>
+
+<body>
+
+  <!-- ════════════════ ШАПКА: плашки-пилюли + лого по центру ════════════════ -->
+  <header class="header" id="header">
+    <p class="hero__eyebrow">Академия целительства и ченнелинга</p>
+    <nav class="header__side header__side--left" aria-label="Разделы">
+      <a class="pill" href="#practice">Практика</a>
+      <a class="pill" href="#teacher">Алёна</a>
+      <a class="pill" href="#retreat">Ретриты</a>
+    </nav>
+
+    <nav class="header__side header__side--right" aria-label="Действия">
+      <a class="pill pill--solid" href="#booking">Записаться <span aria-hidden="true">✦</span></a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ════════════════ ХЕРО: видео + гигантская типографика ════════════════ -->
+  <section class="hero" id="hero" aria-label="Академия Амрита">
+
+    <!-- Видео-фон -->
+    <div class="hero__video" aria-hidden="true">
+      <video autoplay muted loop playsinline preload="auto" id="heroVideo">
+        <source src="06112.mp4" type="video/mp4" />
+      </video>
+      <i class="hero__tint"></i>
+    </div>
+
+    <!-- Контент херо (распорка под гигантскую фразу) -->
+    <div class="hero__inner"></div>
+
+    <!-- Полоса с лидом и кнопками — НАД фразой -->
+    <div class="hero__bottom">
+      <div class="hero__lead" data-reveal>
+        <p>Кундалини-йога, целительство, ченнелинг и&nbsp;ретриты
+           для&nbsp;женщин. Ведёт Алёна&nbsp;Коробова&nbsp;— психолог,
+           целитель, мастер с&nbsp;опытом более 20&nbsp;лет.</p>
+        <a class="pill pill--solid pill--big" href="#booking">Начать путь</a>
+      </div>
+
+      <div class="hero__orbs" data-reveal>
+        <a class="orb" href="#practice" aria-label="К практике">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M12 4 v14 M6 13 l6 6 6-6"/>
+          </svg>
+        </a>
+        <a class="orb" href="#booking" aria-label="Записаться">
+          <svg viewBox="0 0 48 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M24 12 C19 5 10 5 10 12 C10 19 19 19 24 12 C29 5 38 5 38 12 C38 19 29 19 24 12Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__divider" data-reveal aria-hidden="true"></div>
+
+    <!-- ГИГАНТСКАЯ фраза — самый низ экрана, впритык к краю -->
+    <h1 class="hero__giant" aria-label="Кундалини йога">
+      <span class="mask"><span class="mask__inner" data-giant>Кундалини йога</span></span>
+    </h1>
+
+  </section>
+
+  <!-- ░░░░░░░░░░░ СВЕТЛОЕ EDITORIAL-ТЕЛО (айвори, антиква, арки) ░░░░░░░░░░░ -->
+  <!-- ░░░░░░░ ЕДИНЫЙ БЕСШОВНЫЙ ХОЛСТ · sage-beige · минимум текста ░░░░░░░ -->
+  <main id="main">
+
+    <!-- тихий манифест -->
+    <section class="intro">
+      <svg class="deco deco--flower" viewBox="0 0 200 200" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="100" cy="100" r="26"/>
+          <circle cx="100" cy="74" r="26"/><circle cx="123" cy="87" r="26"/><circle cx="123" cy="113" r="26"/>
+          <circle cx="100" cy="126" r="26"/><circle cx="77" cy="113" r="26"/><circle cx="77" cy="87" r="26"/>
+        </g>
+      </svg>
+      <p class="intro__line io-reveal">Дыхание. Мантра.<br/>Движение. Тишина.</p>
+    </section>
+
+    <!-- поток практик: три арки со сдвигом, по одному слову -->
+    <section class="flow" id="practice">
+      <figure class="flow__item flow__item--a io-reveal">
+        <span class="flow__media arch"><img src="assets/gen/dir-kundalini.jpg" alt="Практика кундалини-йоги" loading="lazy" /></span>
+        <figcaption class="flow__cap">Практика</figcaption>
+      </figure>
+      <figure class="flow__item flow__item--b io-reveal">
+        <span class="flow__media arch"><img src="assets/gen/dir-channeling.jpg" alt="Целительство" loading="lazy" /></span>
+        <figcaption class="flow__cap">Целительство</figcaption>
+      </figure>
+      <figure class="flow__item flow__item--c io-reveal">
+        <span class="flow__media arch"><img src="assets/gen/dir-retreat.jpg" alt="Ретриты" loading="lazy" /></span>
+        <figcaption class="flow__cap">Ретриты</figcaption>
+      </figure>
+    </section>
+
+    <!-- одна тихая строка -->
+    <section class="say">
+      <p class="say__line io-reveal">Каждый класс — шаг домой.</p>
+    </section>
+
+    <!-- Алёна -->
+    <section class="founder" id="teacher">
+      <figure class="founder__photo arch io-reveal">
+        <img src="assets/gen/alena-portrait.jpg" alt="Алёна Коробова — основатель Академии Амрита" loading="lazy" />
+      </figure>
+      <div class="founder__body">
+        <h2 class="founder__name io-reveal">Алёна<br/>Коробова</h2>
+        <p class="founder__role io-reveal">Учитель · Проводник · Исследователь</p>
+        <blockquote class="founder__quote io-reveal">
+          Йога — это не то, что ты делаешь.<br/>Это то, чем ты становишься.
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ░ СТИКИ-ПЕРЕХОД: фраза замирает по центру, растёт и тает при скролле ░ -->
+    <section class="hold" id="hold">
+      <div class="hold__inner">
+        <svg class="hold__geo" viewBox="0 0 200 200" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="100" cy="100" r="26"/>
+            <circle cx="100" cy="74" r="26"/><circle cx="123" cy="87" r="26"/><circle cx="123" cy="113" r="26"/>
+            <circle cx="100" cy="126" r="26"/><circle cx="77" cy="113" r="26"/><circle cx="77" cy="87" r="26"/>
+            <circle cx="100" cy="100" r="78"/>
+          </g>
+        </svg>
+        <p class="hold__line">Тишина<br/>внутри</p>
+      </div>
+    </section>
+
+    <!-- ретрит-полоса -->
+    <section class="retreat" id="retreat">
+      <div class="retreat__media" aria-hidden="true">
+        <img src="assets/gen/dir-retreat.jpg" alt="" loading="lazy" />
+        <i class="retreat__veil"></i>
+      </div>
+      <div class="retreat__inner io-reveal">
+        <h2 class="retreat__title">Пространства<br/>преображения</h2>
+        <p class="retreat__meta">Абхазия · 10–17 июня</p>
+        <a class="btn-gold" href="#booking">Узнать больше</a>
+      </div>
+    </section>
+
+    <!-- призыв -->
+    <section class="cta" id="booking">
+      <div class="cta__inner io-reveal">
+        <p class="cta__inf" aria-hidden="true">∞</p>
+        <h2 class="cta__call">Начните путь<br/>к себе</h2>
+        <a class="btn-gold" href="mailto:hello@amrita.studio">Связаться</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- минимальный подвал -->
+  <footer class="foot">
+    <p class="foot__name">AMRITA <span>∞</span></p>
+    <div class="foot__social">
+      <a href="https://instagram.com/amrita_academy">Instagram</a>
+      <a href="https://t.me/amrita_academy">Telegram</a>
+      <a href="https://youtube.com/@amrita_academy">YouTube</a>
+    </div>
+    <p class="foot__copy">© 2026 Академия «Амрита» · Алёна Коробова</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="js/main.js?v=9"></script>
+</body>
+</html>
