@@ -11,13 +11,10 @@
     html,body{ height:100%; overflow:hidden; background:#000; }
     body{ font-family:"Jost",system-ui,sans-serif; color:#fff; }
 
-    /* сцена с 3D-перспективой */
     .stage{
       position:fixed; inset:0; perspective:1700px; overflow:hidden;
-      background:
-        radial-gradient(120% 90% at 50% 30%, #1b1b1d 0%, #0c0c0d 45%, #050505 100%);
+      background:radial-gradient(120% 90% at 50% 30%, #1b1b1d 0%, #0c0c0d 45%, #050505 100%);
     }
-    /* мягкое золотое свечение в глубине */
     .stage::before{
       content:""; position:absolute; left:50%; top:46%; width:70vw; height:70vw;
       transform:translate(-50%,-50%); border-radius:50%;
@@ -25,18 +22,15 @@
       filter:blur(30px); pointer-events:none;
     }
 
-    /* ── ИНТРО / АУТРО логотип ── */
     .mark{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:6; text-align:center; }
-    .mark svg{ width:clamp(120px,14vw,190px); height:auto; overflow:visible; filter:drop-shadow(0 0 0 transparent); }
+    .mark svg{ width:clamp(120px,14vw,190px); height:auto; overflow:visible; }
     .mark__word{ margin-top:1.1rem; font-family:"Cormorant Garamond",serif; font-weight:600; letter-spacing:.5em; text-indent:.5em; font-size:1.5rem; color:var(--gold-br); }
     .mark__tag{ margin-top:.5rem; font-size:.66rem; letter-spacing:.42em; text-transform:uppercase; color:rgba(255,255,255,.55); }
     .mark__cta{ display:inline-block; margin-top:1.6rem; font-size:.62rem; letter-spacing:.26em; text-transform:uppercase; color:#0c0c0d; background:var(--gold-br); border-radius:99px; padding:.9em 2.2em; }
     #outro{ opacity:0; visibility:hidden; }
 
-    /* тонкая золотая линия интро */
     .scratch{ position:absolute; left:50%; top:calc(50% + 130px); width:min(46vw,520px); height:1px; transform:translateX(-50%) scaleX(0); transform-origin:left center; background:linear-gradient(90deg, transparent, var(--gold), transparent); z-index:6; }
 
-    /* ── БРАУЗЕР-МОКАП ── */
     .device{
       position:absolute; left:50%; top:50%; width:1180px; height:720px;
       background:#0e0e0e; border-radius:16px; overflow:hidden; z-index:4;
@@ -50,20 +44,17 @@
     .device__screen{ position:relative; width:100%; height:calc(100% - 40px); background:#E4E7C8; }
     .device__screen iframe{ width:100%; height:100%; border:0; display:block; }
 
-    /* курсор-указатель внутри мокапа */
     .cursor{ position:absolute; left:50%; top:60%; width:24px; height:24px; z-index:5; pointer-events:none; opacity:0; will-change:transform; }
     .cursor svg{ width:100%; height:100%; filter:drop-shadow(0 2px 3px rgba(0,0,0,.4)); }
     .ripple{ position:absolute; width:14px; height:14px; border-radius:50%; border:2px solid var(--gold-br); transform:translate(-50%,-50%) scale(0); opacity:0; }
 
-    /* световой свип в аутро */
     .sweep{ position:absolute; inset:-20%; z-index:7; pointer-events:none;
       background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.18) 50%, transparent 60%);
       transform:translateX(-120%); }
 
-    /* подпись внизу */
     .credit{ position:absolute; left:0; bottom:22px; width:100%; text-align:center; z-index:6; font-size:.6rem; letter-spacing:.34em; text-transform:uppercase; color:rgba(255,255,255,.32); opacity:0; }
 
-    .replay{ position:fixed; right:18px; bottom:16px; z-index:20; font:inherit; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:#0c0c0d; background:var(--gold-br); border:0; border-radius:99px; padding:.7em 1.4em; cursor:pointer; opacity:.0; transition:opacity .4s; }
+    .replay{ position:fixed; right:18px; bottom:16px; z-index:20; font:inherit; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:#0c0c0d; background:var(--gold-br); border:0; border-radius:99px; padding:.7em 1.4em; cursor:pointer; opacity:0; transition:opacity .4s; }
     .replay.show{ opacity:.9; }
     @media (prefers-reduced-motion: reduce){ .replay{ opacity:.9; } }
   </style>
@@ -71,7 +62,6 @@
 <body>
   <div class="stage" id="stage">
 
-    <!-- ИНТРО логотип -->
     <div class="mark" id="intro">
       <svg viewBox="0 0 200 220" fill="none" stroke="var(--gold-br)" aria-hidden="true">
         <circle cx="100" cy="92" r="80" stroke-width="1.4"/>
@@ -88,7 +78,6 @@
     </div>
     <span class="scratch" id="scratch"></span>
 
-    <!-- БРАУЗЕР с живым сайтом -->
     <div class="device" id="device">
       <div class="device__bar">
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -103,7 +92,6 @@
       </div>
     </div>
 
-    <!-- АУТРО -->
     <div class="mark" id="outro">
       <svg viewBox="0 0 200 180" fill="none" stroke="var(--gold-br)" aria-hidden="true">
         <circle cx="100" cy="80" r="70" stroke-width="1.3"/>
@@ -125,103 +113,108 @@
   <script>
   (function () {
     "use strict";
-    var stage = document.getElementById("stage");
     var device = document.getElementById("device");
-    var frame = document.getElementById("frame");
+    var frame  = document.getElementById("frame");
     var cursor = document.getElementById("cursor");
     var ripple = document.getElementById("ripple");
-    var screen = device.querySelector(".device__screen");
 
-    // подгоняем мокап заданного размера под экран
-    function fit(w, h) {
-      return Math.min((window.innerWidth * 0.9) / w, (window.innerHeight * 0.82) / h);
-    }
-    // драйвер скролла внутри фрейма
-    function scrollFrame(y) { try { frame.contentWindow.scrollTo(0, y); } catch (e) {} }
-    function maxScroll() {
-      try {
-        var d = frame.contentWindow.document;
-        return Math.max(0, d.documentElement.scrollHeight - frame.contentWindow.innerHeight);
-      } catch (e) { return 4000; }
-    }
+    function fit(w, h){ return Math.min((window.innerWidth*0.9)/w, (window.innerHeight*0.84)/h); }
+    function scrollFrame(y){ try{ frame.contentWindow.scrollTo(0, y); }catch(e){} }
 
-    gsap.set(device, { xPercent: -50, yPercent: -50, transformPerspective: 1700, transformOrigin: "center center" });
-    gsap.set("#intro", { transformOrigin: "center center" });
-    gsap.set("#outro", { transformOrigin: "center center" });
+    gsap.set(device, { xPercent:-50, yPercent:-50, transformPerspective:1700, transformOrigin:"center center" });
+    gsap.set("#intro",{ transformOrigin:"center center" });
+    gsap.set("#outro",{ transformOrigin:"center center" });
 
     var built = false;
-    function build() {
+    function build(){
       if (built) return; built = true;
+      var win = frame.contentWindow, doc = win.document;
+      function vh(){ try{ return win.innerHeight; }catch(e){ return 720; } }
+      function secY(sel, pad){ try{ var el=doc.querySelector(sel); if(!el) return 0; return Math.max(0, el.getBoundingClientRect().top + win.scrollY - (pad||0)); }catch(e){ return 0; } }
+      function maxY(){ try{ return Math.max(0, doc.documentElement.scrollHeight - win.innerHeight); }catch(e){ return 4000; } }
 
-      var dDesk = fit(1180, 720);
-      var E = "power3.inOut";
-      var tl = gsap.timeline();
+      var dDesk = fit(1180,720), dTab = fit(900,660), dMob = fit(412,760);
+      var sp = { y:0 };
+      var drive = function(){ scrollFrame(sp.y); };
 
-      /* ── СЦЕНА 1 · ИНТРО (0–3s) ── */
-      tl.from("#intro svg", { scale: 0.78, autoAlpha: 0, duration: 1.2, ease: "power2.out" }, 0.2)
-        .fromTo("#intro svg", { filter: "drop-shadow(0 0 0px rgba(237,199,108,0))" },
-          { filter: "drop-shadow(0 0 26px rgba(237,199,108,.5))", duration: 1.1, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.3)
-        .from(".mark__word", { autoAlpha: 0, y: 14, duration: 0.9, ease: "power2.out" }, 0.9)
-        .to("#scratch", { scaleX: 1, duration: 1.0, ease: "power2.inOut" }, 0.7)
-        .to(["#intro", "#scratch"], { autoAlpha: 0, duration: 0.7, ease: "power2.in" }, 2.5);
+      var tl = gsap.timeline({ defaults:{ ease:"power2.inOut" } });
 
-      /* ── СЦЕНА 2 · HERO REVEAL (3–7s) ── */
-      gsap.set(device, { width: 1180, height: 720, scale: dDesk });
+      /* ── СЦЕНА 1 · ИНТРО ── */
+      tl.from("#intro svg", { scale:0.8, autoAlpha:0, duration:1.6, ease:"power2.out" })
+        .fromTo("#intro svg", { filter:"drop-shadow(0 0 0px rgba(237,199,108,0))" },
+          { filter:"drop-shadow(0 0 30px rgba(237,199,108,.55))", duration:1.4, yoyo:true, repeat:1, ease:"sine.inOut" }, "<0.2")
+        .from(".mark__word", { autoAlpha:0, y:16, duration:1.2, ease:"power2.out" }, "<0.5")
+        .to("#scratch", { scaleX:1, duration:1.4, ease:"power2.inOut" }, "<0.1")
+        .to(["#intro","#scratch"], { autoAlpha:0, duration:1.0, ease:"power2.in" }, "+=0.8");
+
+      /* ── СЦЕНА 2 · HERO REVEAL ── */
+      gsap.set(device, { width:1180, height:720, scale:dDesk });
       tl.fromTo(device,
-          { autoAlpha: 0, y: 190, rotationX: 22, scale: dDesk * 0.95 },
-          { autoAlpha: 1, y: 0, rotationX: 0, scale: dDesk, duration: 1.3, ease: "power3.out" }, 2.75)
-        .to(device, { scale: dDesk * 1.05, duration: 3.0, ease: "sine.inOut" }, 4.2); // мягкий push-in
+          { autoAlpha:0, y:220, rotationX:24, scale:dDesk*0.92 },
+          { autoAlpha:1, y:0, rotationX:0, scale:dDesk, duration:1.7, ease:"power3.out" }, "-=0.1")
+        .to(device, { scale:dDesk*1.04, duration:2.8, ease:"sine.inOut" });
 
-      /* ── СЦЕНА 3 · SCROLL WALKTHROUGH (7–14s) ── */
-      var sp = { y: 0 };
-      tl.to(sp, { y: function () { return maxScroll(); }, duration: 6.2, ease: "power1.inOut",
-                  onUpdate: function () { scrollFrame(sp.y); } }, 5.2);
-      // курсор глайдит к кнопке «Записаться» и кликает (ripple)
-      tl.set(cursor, { autoAlpha: 1, left: "42%", top: "62%" }, 5.4)
-        .to(cursor, { left: "84%", top: "11%", duration: 1.6, ease: "power2.inOut" }, 6.2)
-        .to(ripple, { scale: 2.4, autoAlpha: 1, duration: 0.5, ease: "power2.out" }, 7.7)
-        .to(ripple, { autoAlpha: 0, duration: 0.4 }, 8.2)
-        .to(cursor, { autoAlpha: 0, duration: 0.5 }, 11.4);
+      /* курсор → «Записаться» + ripple */
+      tl.set(cursor, { autoAlpha:1, left:"46%", top:"58%" })
+        .to(cursor, { left:"85%", top:"10%", duration:1.7, ease:"power2.inOut" })
+        .to(ripple, { scale:2.6, autoAlpha:1, duration:0.55, ease:"power2.out" }, "-=0.15")
+        .to(ripple, { autoAlpha:0, duration:0.5 }, ">")
+        .to(cursor, { autoAlpha:0, duration:0.7 }, ">0.2");
 
-      /* ── СЦЕНА 4 · FEATURE HIGHLIGHT (14–17s) ── */
-      tl.to(device, { scale: dDesk * 1.42, y: -40, duration: 1.1, ease: "power3.inOut" }, 11.6)
-        .to(device, { scale: dDesk * 1.05, y: 0, duration: 1.0, ease: "power2.inOut" }, 13.4)
-        .add(function () { scrollFrame(0); }, 14.5);
+      /* ── СЦЕНА 3 · МЕДЛЕННЫЙ ПРОХОД ПО ВСЕМУ САЙТУ (со стопами) ── */
+      function step(sel, pad, hold){
+        tl.to(sp, { y:function(){ return secY(sel,pad); }, duration:2.1, ease:"power2.inOut", onUpdate:drive })
+          .to({}, { duration:hold });
+      }
+      step("#practice", 40, 2.8);   // три арки практик + подписи
+      step(".say", 150, 1.8);       // тихая строка
+      step("#teacher", 40, 3.0);    // Алёна: портрет-маска, имя, цитата
+      // сквозь стики-секцию «Тишина внутри» — очень медленно, чтобы отыграл эффект
+      tl.to(sp, { y:function(){ return secY("#hold",0); }, duration:1.6, ease:"power2.inOut", onUpdate:drive })
+        .to(sp, { y:function(){ var el=doc.querySelector("#hold"); return el ? el.getBoundingClientRect().top+win.scrollY+el.offsetHeight - vh()*0.55 : maxY(); },
+                  duration:4.5, ease:"none", onUpdate:drive });
+      step("#retreat", 0, 2.8);     // полоса ретрита
+      step("#booking", 0, 2.8);     // призыв «Начните путь к себе»
 
-      /* ── СЦЕНА 5 · MULTI-DEVICE (17–23s) — реальная адаптивность ── */
-      var dTab = fit(900, 660), dMob = fit(412, 760);
-      tl.to(device, { width: 900, height: 660, scale: dTab, rotationY: -14, duration: 1.1, ease: "power3.inOut" }, 15.0)
-        .to(device, { rotationY: 0, duration: 0.6, ease: "power2.out" }, 16.1)
-        .to({}, { duration: 0.8 }, 16.2)
-        .to(device, { width: 412, height: 760, scale: dMob, rotationY: 16, duration: 1.1, ease: "power3.inOut" }, 17.4)
-        .to(device, { rotationY: 0, duration: 0.6, ease: "power2.out" }, 18.5)
-        .to({}, { duration: 1.0 }, 18.6);
+      /* ── СЦЕНА 4 · КРУПНЫЙ ПЛАН ── */
+      tl.to(device, { scale:dDesk*1.3, duration:1.4, ease:"power2.inOut" })
+        .to({}, { duration:1.0 })
+        .to(device, { scale:dDesk, duration:1.2, ease:"power2.inOut" })
+        .add(function(){ scrollFrame(0); });
 
-      /* ── СЦЕНА 6 · OUTRO (23–28s) ── */
-      tl.to(device, { scale: dMob * 0.5, autoAlpha: 0, y: 30, duration: 1.0, ease: "power2.in" }, 20.0)
-        .fromTo("#outro", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 20.6)
-        .from("#outro svg", { scale: 0.8, autoAlpha: 0, duration: 1.0, ease: "power3.out" }, 20.6)
-        .from(".mark__tag", { autoAlpha: 0, y: 12, duration: 0.8 }, 21.3)
-        .from("#outroCta", { autoAlpha: 0, y: 12, duration: 0.7 }, 21.7)
-        .to("#outroCta", { scale: 1.06, duration: 0.9, yoyo: true, repeat: 2, ease: "sine.inOut", transformOrigin: "center" }, 22.4)
-        .fromTo("#sweep", { x: "-120%" }, { x: "120%", duration: 1.4, ease: "power2.inOut" }, 21.0)
-        .to("#credit", { autoAlpha: 1, duration: 0.8 }, 22.0)
-        .add(function () { document.getElementById("replay").classList.add("show"); }, 24.2);
+      /* ── СЦЕНА 5 · МУЛЬТИ-ДЕВАЙС (реальный адаптив, с паузами) ── */
+      tl.to(device, { width:900, height:660, scale:dTab, rotationY:-16, duration:1.5, ease:"power3.inOut" }, "+=0.3")
+        .to(device, { rotationY:0, duration:0.9, ease:"power2.out" })
+        .to({}, { duration:1.4 })
+        .to(device, { width:412, height:760, scale:dMob, rotationY:18, duration:1.5, ease:"power3.inOut" })
+        .to(device, { rotationY:0, duration:0.9, ease:"power2.out" })
+        .to(sp, { y:function(){ return secY("#practice",20); }, duration:2.2, ease:"power2.inOut", onUpdate:drive })
+        .to({}, { duration:1.6 })
+        .add(function(){ scrollFrame(0); });
+
+      /* ── СЦЕНА 6 · АУТРО ── */
+      tl.to(device, { scale:dMob*0.5, autoAlpha:0, y:30, duration:1.2, ease:"power2.in" }, "+=0.3")
+        .fromTo("#outro", { autoAlpha:0 }, { autoAlpha:1, duration:0.1 }, "<0.3")
+        .from("#outro svg", { scale:0.8, autoAlpha:0, duration:1.2, ease:"power3.out" }, "<")
+        .from(".mark__tag", { autoAlpha:0, y:12, duration:1.0 }, "<0.5")
+        .from("#outroCta", { autoAlpha:0, y:12, duration:0.9 }, "<0.3")
+        .to("#outroCta", { scale:1.06, duration:1.0, yoyo:true, repeat:2, ease:"sine.inOut", transformOrigin:"center" }, "<0.4")
+        .fromTo("#sweep", { x:"-120%" }, { x:"120%", duration:1.7, ease:"power2.inOut" }, "<0.2")
+        .to("#credit", { autoAlpha:1, duration:1.0 }, "<0.4")
+        .to({}, { duration:1.8 })
+        .add(function(){ document.getElementById("replay").classList.add("show"); });
 
       window.__scTl = tl;
+      document.documentElement.setAttribute("data-sc-start", "1"); // сигнал для рендера
     }
 
-    // ждём загрузку фрейма + лёгкую паузу на верстку сайта
-    frame.addEventListener("load", function () { setTimeout(build, 500); });
-    // страховка, если load уже случился
-    setTimeout(function () { if (!built) build(); }, 2500);
+    frame.addEventListener("load", function(){ setTimeout(build, 600); });
+    setTimeout(function(){ if (!built) build(); }, 3000);
 
-    document.getElementById("replay").addEventListener("click", function () {
-      this.classList.remove("show");
-      scrollFrame(0);
+    document.getElementById("replay").addEventListener("click", function(){
+      this.classList.remove("show"); scrollFrame(0);
       if (window.__scTl) window.__scTl.restart(true);
     });
-    window.addEventListener("resize", function () { /* размеры держим из таймлайна */ });
   })();
   </script>
 </body>
