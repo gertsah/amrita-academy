@@ -41,8 +41,10 @@
   gsap.registerPlugin(ScrollTrigger);
 
   /* ── Lenis: плавный скролл (с ним параллакс кинематографичен) ── */
+  // режим showcase: сайт открыт во фрейме видео-презентации — отдаём скролл родителю
+  var showcase = /[?&]showcase\b/.test(location.search);
   var lenis = null;
-  if (typeof Lenis !== "undefined") {
+  if (typeof Lenis !== "undefined" && !showcase) {
     lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
