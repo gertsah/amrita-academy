@@ -1,0 +1,118 @@
+/* ════════════════════════════════════════════════════════════════
+   ПРОДАЮЩИЕ КОМПОНЕНТЫ — понятная воронка (боли → цены → шаги → FAQ)
+   Подключается ПОСЛЕ styles.css, использует те же токены (sage/gold).
+   ════════════════════════════════════════════════════════════════ */
+.label { font-family: var(--sans); font-weight: 500; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--line); margin: 0; }
+.h-sec { font-family: var(--serif-ed); font-weight: 500; font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.04; letter-spacing: -0.01em; color: var(--text); margin: 0.8rem 0 0; }
+.wrap-narrow { width: min(100% - 2 * var(--gutter), 820px); margin-inline: auto; }
+
+.btn-lg { font-size: 0.8rem; padding: 1.35em 3.4em; }
+.btn-ghost { display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 0.95em 2em; transition: background .35s var(--ease-out), color .35s var(--ease-out); white-space: nowrap; }
+.btn-ghost:hover { background: var(--line); color: #F4F0E2; }
+
+/* ── услуги по пунктам + рисующаяся нить (editorial / minimal gallery) ── */
+.services { padding: clamp(4.5rem, 12vh, 8.5rem) 0; }
+.services__body { position: relative; margin: clamp(2.4rem, 6vh, 4rem) 0 clamp(2.4rem, 5vh, 3.4rem); }
+.services__thread { position: absolute; left: 0; top: 0; width: clamp(52px, 7vw, 88px); height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
+.thread__path { opacity: 0.6; }
+.services__list { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; }
+.srv { display: grid; grid-template-columns: clamp(52px, 7vw, 88px) 1fr; align-items: baseline; gap: clamp(1rem, 3vw, 2.6rem); padding: clamp(1.1rem, 2.6vw, 1.8rem) 0; border-bottom: 1px solid var(--line-soft); }
+.srv:first-child { border-top: 1px solid var(--line-soft); }
+.srv__no { font-family: var(--serif-ed); font-style: italic; font-weight: 500; font-size: clamp(1.05rem, 2vw, 1.7rem); color: var(--line); text-align: center; }
+.srv__txt { font-family: var(--serif-ed); font-weight: 500; font-size: clamp(1.35rem, 3.6vw, 2.6rem); line-height: 1.08; letter-spacing: -0.01em; color: var(--text); transition: color .45s var(--ease-out), opacity .45s var(--ease-out); }
+.srv:hover .srv__txt { color: var(--line); }
+
+/* ── продукты/цены ── */
+.plans { padding: clamp(4rem, 10vh, 7rem) 0; }
+.plans__sub { color: var(--muted); margin: 0.8rem 0 clamp(2rem, 5vh, 3rem); max-width: 56ch; font-size: 1.05rem; line-height: 1.6; }
+.plans__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; align-items: stretch; }
+.plan { position: relative; display: flex; flex-direction: column; background: rgba(255,255,255,0.30); border: 1px solid var(--line-soft); border-radius: 22px; padding: 2.3rem 2rem; }
+.plan--featured { background: rgba(255,255,255,0.55); border: 2px solid var(--line); box-shadow: 0 34px 80px -48px rgba(120,92,40,0.6); }
+.plan__badge { position: absolute; top: -14px; left: 2rem; background: var(--line); color: #F4F0E2; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 0.5em 1.1em; border-radius: 99px; }
+.plan__tag { font-size: 0.66rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--line); }
+.plan__name { font-family: var(--serif-ed); font-weight: 600; font-size: clamp(1.6rem, 2.4vw, 2rem); line-height: 1.05; margin: 0.5rem 0 1.2rem; color: var(--text); }
+.plan__list { list-style: none; padding: 0; margin: 0 0 1.6rem; display: grid; gap: 0.6rem; }
+.plan__list li { position: relative; padding-left: 1.5rem; font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+.plan__list li::before { content: "✦"; position: absolute; left: 0; top: 0.18rem; color: var(--line); font-size: 0.68rem; }
+.plan__price { font-family: var(--serif-ed); font-weight: 600; font-size: clamp(2rem, 3.2vw, 2.6rem); color: var(--text); margin: auto 0 1.2rem; }
+.plan__price span { font-family: var(--sans); font-size: 1rem; font-weight: 400; color: var(--muted); }
+.plan__btn { width: 100%; }
+
+.plans__extra { display: grid; gap: 0.9rem; margin-top: 1.4rem; }
+.xrow { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem; border: 1px dashed var(--line-soft); border-radius: 16px; padding: 1.15rem 1.7rem; }
+.xrow b { display: block; font-size: 1.05rem; font-weight: 500; color: var(--text); }
+.xrow span { font-size: 0.85rem; color: var(--muted); }
+
+/* ── что входит ── */
+.inside { padding: clamp(4rem, 10vh, 7rem) 0; }
+.inside__grid { list-style: none; padding: 0; margin: clamp(2rem, 5vh, 3rem) 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem 1.6rem; }
+.inside__grid li { border-top: 1px solid var(--line-soft); padding-top: 1.2rem; }
+.inside__grid span { color: var(--line); font-size: 1rem; }
+.inside__grid b { display: block; font-family: var(--serif-ed); font-weight: 600; font-size: 1.4rem; color: var(--text); margin: 0.4rem 0 0.5rem; }
+.inside__grid p { color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+
+/* ── 3 шага + соединяющая нить ── */
+.steps { padding: clamp(4rem, 10vh, 7rem) 0; text-align: center; }
+.steps__flow { position: relative; margin: clamp(2rem, 5vh, 3rem) 0 clamp(2.4rem, 5vh, 3.2rem); }
+.steps__thread { position: absolute; top: 0; left: 0; width: 100%; height: clamp(56px, 7vw, 84px); overflow: visible; z-index: 0; pointer-events: none; }
+.steps__thread .thread__path { opacity: 0.6; }
+.steps__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; text-align: left; position: relative; z-index: 1; }
+.step { position: relative; z-index: 1; border-top: 1px solid var(--line); padding-top: 1.4rem; }
+.step__no { font-family: var(--serif-ed); font-style: italic; font-size: 2.4rem; color: var(--line); }
+.step b { display: block; font-family: var(--serif-ed); font-weight: 600; font-size: 1.5rem; color: var(--text); margin: 0.5rem 0 0.4rem; }
+.step p { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+
+/* ── основатель: текст + кнопка ── */
+.founder__text { color: var(--muted); font-size: 1rem; line-height: 1.7; margin: 1.2rem 0 1.4rem; max-width: 46ch; }
+.founder .btn-gold { margin-top: 1.4rem; }
+
+/* ── отзывы ── */
+.voices { padding: clamp(4rem, 10vh, 7rem) 0; }
+.voices__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; margin-top: clamp(2rem, 5vh, 3rem); }
+.voice { margin: 0; border-top: 1px solid var(--line-soft); padding-top: 1.6rem; }
+.voice p { font-family: var(--serif-ed); font-style: italic; font-size: 1.3rem; line-height: 1.4; color: var(--text); }
+.voice footer { margin-top: 1rem; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--line); }
+
+/* ── FAQ ── */
+.faq { padding: clamp(4rem, 10vh, 7rem) 0; }
+.faq__list { margin-top: clamp(2rem, 5vh, 3rem); border-top: 1px solid var(--line-soft); }
+.faq__item { border-bottom: 1px solid var(--line-soft); }
+.faq__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.4rem 0.2rem; font-family: var(--serif-ed); font-weight: 500; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--text); }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary i { position: relative; width: 16px; height: 16px; flex: 0 0 16px; }
+.faq__item summary i::before, .faq__item summary i::after { content: ""; position: absolute; background: var(--line); transition: transform .3s var(--ease-out); }
+.faq__item summary i::before { top: 7px; left: 0; width: 16px; height: 2px; }
+.faq__item summary i::after { left: 7px; top: 0; width: 2px; height: 16px; }
+.faq__item[open] summary i::after { transform: scaleY(0); }
+.faq__item > div { padding: 0 0.2rem 1.4rem; }
+.faq__item p { color: var(--muted); font-size: 1rem; line-height: 1.6; }
+
+/* ── финальная форма ── */
+.join { position: relative; padding: clamp(5rem, 12vh, 9rem) 0; overflow: hidden; }
+.join__halo { position: absolute; top: 50%; left: 50%; width: 70vw; max-width: 820px; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(156,122,54,0.16), transparent 62%); filter: blur(40px); pointer-events: none; }
+.join__inner { position: relative; text-align: center; }
+.join__title { font-family: var(--serif-ed); font-weight: 600; font-size: clamp(2.2rem, 5vw, 3.8rem); color: var(--text); margin: 0.6rem 0 1rem; }
+.join__lead { color: var(--muted); margin-bottom: 2.4rem; font-size: 1.05rem; }
+.join__form { display: grid; gap: 1.5rem; text-align: left; max-width: 520px; margin: 0 auto; }
+.join__form .field { display: grid; gap: 0.5rem; }
+.join__form label { font-size: 0.66rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--line); }
+.join__form input, .join__form select { font-family: var(--sans); font-size: 1.05rem; color: var(--text); background: rgba(255,255,255,0.45); border: 1px solid var(--line-soft); border-radius: 12px; padding: 0.95em 1em; width: 100%; box-sizing: border-box; }
+.join__form input::placeholder { color: var(--muted); }
+.join__form input:focus, .join__form select:focus { outline: none; border-color: var(--line); }
+.join__form .btn-gold { justify-self: center; margin-top: 0.4rem; }
+.join__status { text-align: center; color: var(--line); min-height: 1.2em; font-size: 0.95rem; }
+
+/* ── подвал: доп. ── */
+.foot__tag { font-size: 0.82rem; color: var(--muted); }
+.foot__nav { display: flex; gap: 1.4rem; flex-wrap: wrap; justify-content: center; }
+.foot__nav a { font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); transition: color .3s var(--ease-out); }
+.foot__nav a:hover { color: var(--line); }
+
+/* ── адаптив продающих секций ── */
+@media (max-width: 900px) {
+  .plans__grid, .inside__grid, .steps__grid, .voices__grid { grid-template-columns: 1fr; }
+  .plans__grid { max-width: 440px; margin-inline: auto; }
+  .plan--featured { order: -1; }
+  .xrow { flex-direction: column; align-items: flex-start; }
+  .steps__thread { display: none; }  /* шаги в столбик — горизонтальная нить не нужна */
+}

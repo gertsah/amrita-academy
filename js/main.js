@@ -25,6 +25,30 @@
     }, { rootMargin: "-72px 0px 0px 0px" }).observe(hero);
   }
 
+  /* ── продажи: клик по карточке подставляет формат в форму ── */
+  document.querySelectorAll("[data-plan]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      var sel = document.getElementById("plan");
+      if (!sel) return;
+      var want = el.getAttribute("data-plan");
+      for (var i = 0; i < sel.options.length; i++) {
+        if (sel.options[i].value === want || sel.options[i].text === want) { sel.selectedIndex = i; break; }
+      }
+    });
+  });
+
+  /* ── заявка (демо: без бэкенда — показываем подтверждение) ── */
+  var joinForm = document.getElementById("joinForm");
+  if (joinForm) joinForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var st = document.getElementById("joinStatus");
+    var nm = (document.getElementById("name") || {}).value || "";
+    var ct = (document.getElementById("contact") || {}).value || "";
+    if (!nm.trim() || !ct.trim()) { if (st) st.textContent = "Пожалуйста, заполните имя и контакт."; return; }
+    if (st) st.textContent = "Спасибо! Заявка принята — мы свяжемся с вами и пришлём доступ.";
+    joinForm.reset();
+  });
+
   /* ── режим без анимаций ── */
   if (reduced || typeof gsap === "undefined") {
     document.querySelectorAll(".io-reveal").forEach(function (el) { el.classList.add("is-in"); });
@@ -137,6 +161,19 @@
         scrollTrigger: { trigger: el, start: "top 88%" }
       });
     }
+  });
+
+  /* ── золотые нити (услуги, шаги): рисуются по мере скролла ── */
+  gsap.utils.toArray(".thread__path").forEach(function (path) {
+    if (!path.getTotalLength) return;
+    var len = path.getTotalLength();
+    if (!len) return;
+    var sec = path.closest("section");
+    gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+    gsap.to(path, {
+      strokeDashoffset: 0, ease: "none",
+      scrollTrigger: { trigger: sec, start: "top 80%", end: "bottom 72%", scrub: 0.6 }
+    });
   });
 
   /* ── пересчёт после загрузки шрифтов/картинок ── */

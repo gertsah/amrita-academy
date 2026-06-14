@@ -13,7 +13,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" />
 
-  <link rel="stylesheet" href="css/styles.css?v=13" />
+  <link rel="stylesheet" href="css/styles.css?v=14" />
+  <link rel="stylesheet" href="css/sell.css?v=3" />
 </head>
 
 <body>
@@ -22,13 +23,14 @@
   <header class="header" id="header">
     <p class="hero__eyebrow">Академия целительства и ченнелинга</p>
     <nav class="header__side header__side--left" aria-label="Разделы">
-      <a class="pill" href="#practice">Практика</a>
+      <a class="pill" href="#start">Форматы</a>
+      <a class="pill" href="#inside">Что входит</a>
       <a class="pill" href="#teacher">Алёна</a>
-      <a class="pill" href="#retreat">Ретриты</a>
     </nav>
 
     <nav class="header__side header__side--right" aria-label="Действия">
-      <a class="pill pill--solid" href="#booking">Записаться <span aria-hidden="true">✦</span></a>
+      <a class="pill" href="#join">Войти</a>
+      <a class="pill pill--solid" href="#start">Записаться <span aria-hidden="true">✦</span></a>
     </nav>
 
     <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
@@ -58,16 +60,16 @@
         <p>Кундалини-йога, целительство, ченнелинг и&nbsp;ретриты
            для&nbsp;женщин. Ведёт Алёна&nbsp;Коробова&nbsp;— психолог,
            целитель, мастер с&nbsp;опытом более 20&nbsp;лет.</p>
-        <a class="pill pill--solid pill--big" href="#booking">Начать путь</a>
+        <a class="pill pill--solid pill--big" href="#start">Начать путь</a>
       </div>
 
       <div class="hero__orbs" data-reveal>
-        <a class="orb" href="#practice" aria-label="К практике">
+        <a class="orb" href="#start" aria-label="К форматам">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
             <path d="M12 4 v14 M6 13 l6 6 6-6"/>
           </svg>
         </a>
-        <a class="orb" href="#booking" aria-label="Записаться">
+        <a class="orb" href="#join" aria-label="Записаться">
           <svg viewBox="0 0 48 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M24 12 C19 5 10 5 10 12 C10 19 19 19 24 12 C29 5 38 5 38 12 C38 19 29 19 24 12Z"/>
           </svg>
@@ -86,108 +88,237 @@
 
   <!-- ░░░░░░░░░░░ СВЕТЛОЕ EDITORIAL-ТЕЛО (айвори, антиква, арки) ░░░░░░░░░░░ -->
   <!-- ░░░░░░░ ЕДИНЫЙ БЕСШОВНЫЙ ХОЛСТ · sage-beige · минимум текста ░░░░░░░ -->
+  <!-- ░░░░░░░░░ ПРОДАЮЩЕЕ ТЕЛО · понятная воронка (зашёл → выбрал → купил) ░░░░░░░░░ -->
   <main id="main">
 
-    <!-- тихий манифест -->
-    <section class="intro">
-      <svg class="deco deco--flower" viewBox="0 0 200 200" aria-hidden="true">
-        <g fill="none" stroke="currentColor" stroke-width="1">
-          <circle cx="100" cy="100" r="26"/>
-          <circle cx="100" cy="74" r="26"/><circle cx="123" cy="87" r="26"/><circle cx="123" cy="113" r="26"/>
-          <circle cx="100" cy="126" r="26"/><circle cx="77" cy="113" r="26"/><circle cx="77" cy="87" r="26"/>
-        </g>
-      </svg>
-      <p class="intro__line io-reveal">Дыхание. Мантра.<br/>Движение. Тишина.</p>
+    <!-- ═══ ЧТО РЕШИШЬ — услуги по пунктам + рисующаяся нить ═══ -->
+    <section class="services" id="outcomes">
+      <div class="wrap">
+        <p class="label io-reveal">Что меняется с практикой</p>
+        <h2 class="h-sec io-reveal">Кундалини-йога решает то,<br/>что давно мешало жить</h2>
+
+        <div class="services__body">
+          <!-- золотая нить: рисуется при скролле и огибает номера -->
+          <svg class="services__thread" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="thread__path"
+                  d="M50 0 C 80 8, 20 20, 50 33 C 80 46, 20 54, 50 67 C 80 80, 20 92, 50 100"
+                  fill="none" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round"
+                  vector-effect="non-scaling-stroke" />
+          </svg>
+
+          <ol class="services__list">
+            <li class="srv io-reveal"><span class="srv__no">01</span><span class="srv__txt">освободиться от тревоги и страха</span></li>
+            <li class="srv io-reveal"><span class="srv__no">02</span><span class="srv__txt">снять стресс и напряжение</span></li>
+            <li class="srv io-reveal"><span class="srv__no">03</span><span class="srv__txt">наладить глубокий сон</span></li>
+            <li class="srv io-reveal"><span class="srv__no">04</span><span class="srv__txt">вернуть силы и энергию</span></li>
+            <li class="srv io-reveal"><span class="srv__no">05</span><span class="srv__txt">обрести уверенность в себе</span></li>
+            <li class="srv io-reveal"><span class="srv__no">06</span><span class="srv__txt">выйти из апатии и усталости</span></li>
+            <li class="srv io-reveal"><span class="srv__no">07</span><span class="srv__txt">вернуть радость жизни</span></li>
+            <li class="srv io-reveal"><span class="srv__no">08</span><span class="srv__txt">улучшить здоровье и тонус</span></li>
+            <li class="srv io-reveal"><span class="srv__no">09</span><span class="srv__txt">найти себя и своё место</span></li>
+          </ol>
+        </div>
+
+        <a class="btn-gold btn-lg io-reveal" href="#start">Выбрать формат →</a>
+      </div>
     </section>
 
-    <!-- поток практик: три арки со сдвигом, по одному слову -->
-    <section class="flow" id="practice">
-      <figure class="flow__item flow__item--a io-reveal">
-        <span class="flow__media arch"><img src="assets/gen/dir-kundalini.jpg" alt="Практика кундалини-йоги" loading="lazy" /></span>
-        <figcaption class="flow__cap">Практика</figcaption>
-      </figure>
-      <figure class="flow__item flow__item--b io-reveal">
-        <span class="flow__media arch"><img src="assets/gen/dir-channeling.jpg" alt="Целительство" loading="lazy" /></span>
-        <figcaption class="flow__cap">Целительство</figcaption>
-      </figure>
-      <figure class="flow__item flow__item--c io-reveal">
-        <span class="flow__media arch"><img src="assets/gen/dir-retreat.jpg" alt="Ретриты" loading="lazy" /></span>
-        <figcaption class="flow__cap">Ретриты</figcaption>
-      </figure>
+    <!-- ═══ ПРОДУКТЫ + ЦЕНЫ (главный экран покупки) ═══ -->
+    <section class="plans" id="start">
+      <div class="wrap">
+        <p class="label io-reveal">С чего начать</p>
+        <h2 class="h-sec io-reveal">Выберите свой формат</h2>
+        <p class="plans__sub io-reveal">Просто выберите карточку и нажмите кнопку — доступ открывается сразу после оплаты.</p>
+
+        <div class="plans__grid">
+
+          <article class="plan io-reveal">
+            <p class="plan__tag">Старт · марафон</p>
+            <h3 class="plan__name">7 дней дыхания</h3>
+            <ul class="plan__list">
+              <li>7 коротких практик по 20 минут</li>
+              <li>дыхание, мантра, релаксация</li>
+              <li>доступ навсегда</li>
+            </ul>
+            <p class="plan__price">1 490 ₽</p>
+            <a class="btn-gold plan__btn" href="#join" data-plan="Марафон «7 дней дыхания» — 1 490 ₽">Купить марафон</a>
+          </article>
+
+          <article class="plan plan--featured io-reveal">
+            <span class="plan__badge">Рекомендуем</span>
+            <p class="plan__tag">Клуб · подписка</p>
+            <h3 class="plan__name">Клуб «Амрита»</h3>
+            <ul class="plan__list">
+              <li>200+ видеоуроков 24/7</li>
+              <li>живые практики в Zoom</li>
+              <li>чат поддержки и подбор практик</li>
+              <li>библиотека: мантры, музыка, лекции</li>
+            </ul>
+            <p class="plan__price">2 900 ₽<span>/мес</span></p>
+            <a class="btn-gold plan__btn" href="#join" data-plan="Клуб «Амрита» — 2 900 ₽/мес">Вступить в клуб</a>
+          </article>
+
+          <article class="plan io-reveal">
+            <p class="plan__tag">Курс · 8 недель</p>
+            <h3 class="plan__name">Основа практики</h3>
+            <ul class="plan__list">
+              <li>пошаговый курс с нуля</li>
+              <li>крийи, медитации, устойчивость</li>
+              <li>обратная связь и разборы</li>
+            </ul>
+            <p class="plan__price">9 600 ₽</p>
+            <a class="btn-gold plan__btn" href="#join" data-plan="Курс «Основа практики» — 9 600 ₽">Купить курс</a>
+          </article>
+
+        </div>
+
+        <!-- лёгкий вход + индивидуально -->
+        <div class="plans__extra io-reveal">
+          <div class="xrow">
+            <div><b>Бесплатная практика от тревоги</b><span>попробуйте перед покупкой</span></div>
+            <a class="btn-ghost" href="#join" data-plan="Бесплатная практика от тревоги">Получить бесплатно</a>
+          </div>
+          <div class="xrow">
+            <div><b>Индивидуально с Алёной</b><span>личная программа · от 5 000 ₽</span></div>
+            <a class="btn-ghost" href="#join" data-plan="Индивидуально с Алёной — от 5 000 ₽">Записаться</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- одна тихая строка -->
-    <section class="say">
-      <p class="say__line io-reveal">Каждый класс — шаг домой.</p>
+    <!-- ═══ ЧТО ВНУТРИ ═══ -->
+    <section class="inside" id="inside">
+      <div class="wrap">
+        <p class="label io-reveal">Что входит</p>
+        <h2 class="h-sec io-reveal">Всё для регулярной практики<br/>в одном месте</h2>
+        <ul class="inside__grid">
+          <li class="io-reveal"><span>✦</span><b>200+ видеоуроков</b><p>Кундалини-йога, медитации и пранаямы 24/7 — с телефона или компьютера.</p></li>
+          <li class="io-reveal"><span>✦</span><b>Живые практики в Zoom</b><p>Совместные занятия с Алёной несколько раз в неделю.</p></li>
+          <li class="io-reveal"><span>✦</span><b>Чат поддержки</b><p>Ответы на вопросы и вдохновение каждый день.</p></li>
+          <li class="io-reveal"><span>✦</span><b>Личный подбор практик</b><p>Программа под ваш запрос и уровень.</p></li>
+          <li class="io-reveal"><span>✦</span><b>Библиотека</b><p>Мантры, музыка, лекции и теория йоги.</p></li>
+          <li class="io-reveal"><span>✦</span><b>Для любого уровня</b><p>Мягко для новичков, глубоко для опытных.</p></li>
+        </ul>
+      </div>
     </section>
 
-    <!-- Алёна -->
+    <!-- ═══ КАК НАЧАТЬ (3 шага — путь покупки) ═══ -->
+    <section class="steps" id="how">
+      <div class="wrap">
+        <p class="label io-reveal">Как начать</p>
+        <h2 class="h-sec io-reveal">Три простых шага</h2>
+        <div class="steps__flow">
+          <!-- нить, соединяющая шаги: рисуется при скролле -->
+          <svg class="steps__thread" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+            <path class="thread__path"
+                  d="M1 10 C 18 2, 32 18, 50 10 C 68 2, 82 18, 99 10"
+                  fill="none" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round"
+                  vector-effect="non-scaling-stroke" />
+          </svg>
+          <div class="steps__grid">
+            <div class="step io-reveal"><span class="step__no">01</span><b>Выберите формат</b><p>Марафон, клуб или курс — что откликается.</p></div>
+            <div class="step io-reveal"><span class="step__no">02</span><b>Оплатите онлайн</b><p>Безопасно, за пару минут.</p></div>
+            <div class="step io-reveal"><span class="step__no">03</span><b>Практикуйте</b><p>Доступ открывается сразу — из любой точки мира.</p></div>
+          </div>
+        </div>
+        <a class="btn-gold btn-lg io-reveal" href="#start">Начать сейчас →</a>
+      </div>
+    </section>
+
+    <!-- ═══ ОСНОВАТЕЛЬ ═══ -->
     <section class="founder" id="teacher">
       <figure class="founder__photo arch io-reveal">
         <img src="assets/gen/alena-portrait.jpg" alt="Алёна Коробова — основатель Академии Амрита" loading="lazy" />
       </figure>
       <div class="founder__body">
-        <h2 class="founder__name io-reveal">Алёна<br/>Коробова</h2>
-        <p class="founder__role io-reveal">Учитель · Проводник · Исследователь</p>
-        <blockquote class="founder__quote io-reveal">
-          Йога — это не то, что ты делаешь.<br/>Это то, чем ты становишься.
-        </blockquote>
+        <p class="label io-reveal">Ваш проводник</p>
+        <h2 class="founder__name io-reveal">Алёна Коробова</h2>
+        <p class="founder__role io-reveal">Психолог · преподаватель кундалини-йоги · целитель</p>
+        <p class="founder__text io-reveal">Более 20 лет веду людей к целостности через тело, дыхание и энергию.
+          В практике объединяю психологию, медитацию и глубокие техники трансформации.</p>
+        <blockquote class="founder__quote io-reveal">Йога — это не то, что ты делаешь. Это то, чем ты становишься.</blockquote>
+        <a class="btn-gold io-reveal" href="#start">Начать с Алёной →</a>
       </div>
     </section>
 
-    <!-- ░ СТИКИ-ПЕРЕХОД: фраза замирает по центру, растёт и тает при скролле ░ -->
-    <section class="hold" id="hold">
-      <div class="hold__inner">
-        <svg class="hold__geo" viewBox="0 0 200 200" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-width="1">
-            <circle cx="100" cy="100" r="26"/>
-            <circle cx="100" cy="74" r="26"/><circle cx="123" cy="87" r="26"/><circle cx="123" cy="113" r="26"/>
-            <circle cx="100" cy="126" r="26"/><circle cx="77" cy="113" r="26"/><circle cx="77" cy="87" r="26"/>
-            <circle cx="100" cy="100" r="78"/>
-          </g>
-        </svg>
-        <p class="hold__line">Тишина<br/>внутри</p>
+    <!-- ═══ ОТЗЫВЫ ═══ -->
+    <section class="voices" id="reviews">
+      <div class="wrap">
+        <p class="label io-reveal">Отзывы учениц</p>
+        <h2 class="h-sec io-reveal">Что меняется в жизни</h2>
+        <div class="voices__grid">
+          <blockquote class="voice io-reveal"><p>Тревога ушла, появилась опора. Впервые за годы сплю спокойно.</p><footer>— Марина</footer></blockquote>
+          <blockquote class="voice io-reveal"><p>За месяц практики вернулись силы и ясность. Это изменило мой день.</p><footer>— Ольга</footer></blockquote>
+          <blockquote class="voice io-reveal"><p>Алёна ведёт очень бережно. Доверяешься процессу полностью.</p><footer>— Анна</footer></blockquote>
+        </div>
       </div>
     </section>
 
-    <!-- ретрит-полоса -->
-    <section class="retreat" id="retreat">
-      <div class="retreat__media" aria-hidden="true">
-        <img src="assets/gen/dir-retreat.jpg" alt="" loading="lazy" />
-        <i class="retreat__veil"></i>
-      </div>
-      <div class="retreat__inner io-reveal">
-        <h2 class="retreat__title">Пространства<br/>преображения</h2>
-        <p class="retreat__meta">Абхазия · 10–17 июня</p>
-        <a class="btn-gold" href="#booking">Узнать больше</a>
+    <!-- ═══ FAQ ═══ -->
+    <section class="faq" id="faq">
+      <div class="wrap-narrow">
+        <p class="label io-reveal">Частые вопросы</p>
+        <h2 class="h-sec io-reveal">Коротко о главном</h2>
+        <div class="faq__list">
+          <details class="faq__item io-reveal"><summary>Нужен ли опыт?<i></i></summary><div><p>Нет. Всё выстроено от основ — подойдёт даже если вы никогда не практиковали.</p></div></details>
+          <details class="faq__item io-reveal"><summary>Сколько времени нужно?<i></i></summary><div><p>В среднем 20–40 минут в день. Много коротких уроков — можно встроить в любой график.</p></div></details>
+          <details class="faq__item io-reveal"><summary>Как получить доступ?<i></i></summary><div><p>Сразу после оплаты — на телефоне или компьютере, 24/7.</p></div></details>
+          <details class="faq__item io-reveal"><summary>Можно ли отменить подписку?<i></i></summary><div><p>Да, в любой момент — без сложностей.</p></div></details>
+          <details class="faq__item io-reveal"><summary>Что нужно для практики?<i></i></summary><div><p>Коврик, удобная одежда и немного тишины. Остальное — внутри.</p></div></details>
+        </div>
       </div>
     </section>
 
-    <!-- призыв -->
-    <section class="cta" id="booking">
-      <div class="cta__inner io-reveal">
-        <p class="cta__inf" aria-hidden="true">∞</p>
-        <h2 class="cta__call">Начните путь<br/>к себе</h2>
-        <a class="btn-gold" href="mailto:hello@amrita.studio">Связаться</a>
+    <!-- ═══ ФИНАЛЬНЫЙ ПРИЗЫВ + ФОРМА ═══ -->
+    <section class="join" id="join">
+      <div class="join__halo" aria-hidden="true"></div>
+      <div class="wrap-narrow join__inner">
+        <p class="label io-reveal">Начало пути</p>
+        <h2 class="join__title io-reveal">Начните практику сегодня</h2>
+        <p class="join__lead io-reveal">Оставьте заявку — пришлём доступ и поможем выбрать формат под вас.</p>
+        <form class="join__form io-reveal" id="joinForm" novalidate>
+          <div class="field"><label for="name">Имя</label><input id="name" name="name" type="text" required placeholder="Как к вам обращаться" /></div>
+          <div class="field"><label for="contact">Телефон или e-mail</label><input id="contact" name="contact" type="text" required placeholder="Для связи" /></div>
+          <div class="field"><label for="plan">Формат</label>
+            <select id="plan" name="plan">
+              <option value="">Выберите формат…</option>
+              <option>Бесплатная практика от тревоги</option>
+              <option>Марафон «7 дней дыхания» — 1 490 ₽</option>
+              <option>Клуб «Амрита» — 2 900 ₽/мес</option>
+              <option>Курс «Основа практики» — 9 600 ₽</option>
+              <option>Индивидуально с Алёной — от 5 000 ₽</option>
+            </select>
+          </div>
+          <button class="btn-gold btn-lg" type="submit">Оформить</button>
+          <p class="join__status" id="joinStatus" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
   </main>
 
-  <!-- минимальный подвал -->
+  <!-- ═══ ПОДВАЛ ═══ -->
   <footer class="foot">
     <p class="foot__name">AMRITA <span>∞</span></p>
+    <p class="foot__tag">Академия целительства и ченнелинга · Алёна Коробова</p>
+    <nav class="foot__nav">
+      <a href="#start">Форматы</a>
+      <a href="#inside">Что входит</a>
+      <a href="#teacher">Об Алёне</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#join">Записаться</a>
+    </nav>
     <div class="foot__social">
       <a href="https://instagram.com/amrita_academy">Instagram</a>
       <a href="https://t.me/amrita_academy">Telegram</a>
       <a href="https://youtube.com/@amrita_academy">YouTube</a>
     </div>
-    <p class="foot__copy">© 2026 Академия «Амрита» · Алёна Коробова</p>
+    <p class="foot__copy">© 2026 Академия «Амрита» · Договор оферты · Политика конфиденциальности</p>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="js/main.js?v=11"></script>
+  <script src="js/main.js?v=14"></script>
 </body>
 </html>
