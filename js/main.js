@@ -146,8 +146,21 @@
     });
   }
 
+  /* ── ЗАГОЛОВКИ: киношный clip-reveal (раскрытие сверху вниз) ── */
+  var headSel = ".h-sec, .join__title, .founder__name";
+  gsap.utils.toArray(headSel).forEach(function (h) {
+    gsap.fromTo(h,
+      { clipPath: "inset(0 0 100% 0)", yPercent: 14, opacity: 0 },
+      {
+        clipPath: "inset(0 0 0% 0)", yPercent: 0, opacity: 1, duration: 1.1, ease: "power3.out",
+        scrollTrigger: { trigger: h, start: "top 86%" }
+      }
+    );
+  });
+
   /* ── ПОЯВЛЕНИЕ ТЕКСТА И ПЛАШЕК НА СКРОЛЛЕ ── */
   gsap.utils.toArray(".io-reveal").forEach(function (el) {
+    if (el.matches(headSel)) return;               // заголовки обработаны отдельным clip-reveal
     gsap.set(el, { opacity: 1, y: 0 });            // снимаем стартовое скрытие из CSS
     if (showcase) {
       // showcase: привязываем к позиции скролла — детерминированно для покадрового рендера
@@ -163,18 +176,43 @@
     }
   });
 
-  /* ── ЕДИНАЯ ЗОЛОТАЯ НИТЬ: рисуется по прогрессу всей страницы + свой медленный слой ── */
+  /* ── ЕДИНАЯ ЗОЛОТАЯ НИТЬ: рисуется по странице + бегущий огонёк + свой медленный слой ── */
   var thread = document.querySelector("#amrita-thread .thread__line");
+  var threadSvg = document.querySelector("#amrita-thread .thread__svg");
+  var comet = document.querySelector("#amrita-thread .thread__comet");
   if (thread && thread.getTotalLength) {
     var tlen = thread.getTotalLength();
     if (tlen) {
+      var cw = 0, ch = 0;
+      var measureThread = function () {
+        if (threadSvg) { var r = threadSvg.getBoundingClientRect(); cw = r.width; ch = r.height; }
+      };
+      measureThread();
+      ScrollTrigger.addEventListener("refresh", measureThread);
+
       gsap.set("#amrita-thread", { xPercent: -50 });           // центрирование под управлением GSAP
       gsap.set(thread, { strokeDasharray: tlen, strokeDashoffset: tlen });
-      // 1) рисование: конец линии у текущей зоны взгляда
+
+      // 1) рисование линии + позиция бегущего огонька на её острие
       gsap.to(thread, {
         strokeDashoffset: 0, ease: "none",
-        scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: 0.6 }
+        scrollTrigger: {
+          trigger: "#main", start: "top top", end: "bottom bottom", scrub: 0.6,
+          onUpdate: function (self) {
+            if (!comet) return;
+            var pr = self.progress;
+            if (pr > 0.004 && pr < 0.996 && cw) {
+              var pt = thread.getPointAtLength(pr * tlen);   // координаты в системе viewBox (0-100 × 0-1000)
+              comet.style.left = (pt.x / 100 * cw) + "px";
+              comet.style.top = (pt.y / 1000 * ch) + "px";
+              comet.classList.add("is-on");
+            } else {
+              comet.classList.remove("is-on");
+            }
+          }
+        }
       });
+
       // 2) параллакс-слой нити: медленнее контента (~0.88x)
       gsap.fromTo("#amrita-thread", { yPercent: -6 }, {
         yPercent: 6, ease: "none",

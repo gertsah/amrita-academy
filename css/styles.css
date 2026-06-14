@@ -231,8 +231,9 @@ body { background: var(--bg); }
 main#main, .foot { background: var(--bg); color: var(--text); position: relative; z-index: 1; }
 .wrap { width: min(100% - 2 * var(--gutter), 1200px); margin-inline: auto; }
 
-.io-reveal { opacity: 0; transform: translateY(22px); transition: opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out); }
-.io-reveal.is-in { opacity: 1; transform: none; }
+.io-reveal { opacity: 0; transform: translateY(22px); }
+/* переход — ТОЛЬКО для fallback без GSAP (класс is-in); в основном пути анимирует GSAP, без конфликта transition */
+.io-reveal.is-in { opacity: 1; transform: none; transition: opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out); }
 
 /* фоновая геометрия — «дизайн без слов» */
 .deco { position: absolute; color: var(--line-soft); pointer-events: none; opacity: 0.28; z-index: 0; }
