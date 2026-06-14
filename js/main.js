@@ -158,6 +158,18 @@
     );
   });
 
+  /* ── ЭТАПЫ ПУТИ: текст появляется ступенями (строка → точка → имя-вайп → описание) ── */
+  gsap.utils.toArray(".stage").forEach(function (st) {
+    var nm = st.querySelector(".stage__name");
+    var dot = st.querySelector(".stage__dot");
+    var desc = st.querySelector(".stage__desc");
+    var tl = gsap.timeline({ scrollTrigger: { trigger: st, start: "top 88%" } });
+    tl.fromTo(st, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, 0);
+    if (dot) tl.fromTo(dot, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(2)" }, 0.1);
+    if (nm) tl.fromTo(nm, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power3.out" }, 0.18);
+    if (desc) tl.fromTo(desc, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 0.32);
+  });
+
   /* ── ПОЯВЛЕНИЕ ТЕКСТА И ПЛАШЕК НА СКРОЛЛЕ ── */
   gsap.utils.toArray(".io-reveal").forEach(function (el) {
     if (el.matches(headSel)) return;               // заголовки обработаны отдельным clip-reveal
@@ -222,7 +234,7 @@
   }
 
   // 3) встречный слой: крупные антиква-номера опережают скролл
-  gsap.utils.toArray(".srv__no, .step__no").forEach(function (n) {
+  gsap.utils.toArray(".stage__no, .step__no").forEach(function (n) {
     var sec = n.closest("section");
     gsap.fromTo(n, { y: 28 }, {
       y: -28, ease: "none",

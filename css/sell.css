@@ -10,17 +10,20 @@
 .btn-ghost { display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 0.95em 2em; transition: background .35s var(--ease-out), color .35s var(--ease-out); white-space: nowrap; }
 .btn-ghost:hover { background: var(--line); color: #F4F0E2; }
 
-/* ── услуги по пунктам + рисующаяся нить (editorial / minimal gallery) ── */
+/* ── ПУТЬ ПРОБУЖДЕНИЯ: этапы кундалини (семь центров) ── */
 .services { padding: clamp(4.5rem, 12vh, 8.5rem) 0; }
-.services__body { position: relative; margin: clamp(2.4rem, 6vh, 4rem) 0 clamp(2.4rem, 5vh, 3.4rem); }
-.services__thread { position: absolute; left: 0; top: 0; width: clamp(52px, 7vw, 88px); height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
-.thread__path { opacity: 0.6; }
-.services__list { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; }
-.srv { display: grid; grid-template-columns: clamp(52px, 7vw, 88px) 1fr; align-items: baseline; gap: clamp(1rem, 3vw, 2.6rem); padding: clamp(1.1rem, 2.6vw, 1.8rem) 0; border-bottom: 1px solid var(--line-soft); }
-.srv:first-child { border-top: 1px solid var(--line-soft); }
-.srv__no { font-family: var(--serif-ed); font-style: italic; font-weight: 500; font-size: clamp(1.05rem, 2vw, 1.7rem); color: var(--line); text-align: center; }
-.srv__txt { font-family: var(--serif-ed); font-weight: 500; font-size: clamp(1.35rem, 3.6vw, 2.6rem); line-height: 1.08; letter-spacing: -0.01em; color: var(--text); transition: color .45s var(--ease-out), opacity .45s var(--ease-out); }
-.srv:hover .srv__txt { color: var(--line); }
+.services__intro { color: var(--muted); font-size: 1.12rem; line-height: 1.65; max-width: 52ch; margin: 0.9rem 0 clamp(2.4rem, 6vh, 4rem); }
+.path { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; }
+.stage { position: relative; display: grid; grid-template-columns: clamp(44px, 6vw, 78px) 1fr; align-items: start; gap: clamp(1rem, 3vw, 2.4rem); padding: clamp(1.3rem, 3vw, 2.1rem) 0; border-top: 1px solid var(--line-soft); }
+.stage:last-child { border-bottom: 1px solid var(--line-soft); }
+.stage__no { font-family: var(--serif-ed); font-style: italic; font-weight: 500; font-size: clamp(1rem, 1.8vw, 1.5rem); color: var(--line); display: inline-block; padding-top: 0.3rem; }
+.stage__name { font-family: var(--serif-ed); font-weight: 600; font-size: clamp(1.5rem, 3.4vw, 2.5rem); line-height: 1.05; letter-spacing: -0.01em; color: var(--text); display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; margin: 0; }
+.stage__name i { font-style: normal; font-family: var(--sans); font-weight: 500; font-size: 0.42em; letter-spacing: 0.22em; text-transform: uppercase; color: var(--line); }
+.stage__dot { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; align-self: center;
+  background: radial-gradient(circle at 35% 35%, #F6E5B6, #C9A24B 60%, #9C7A36);
+  box-shadow: 0 0 0 4px rgba(201,162,75,0.12), 0 0 10px 2px rgba(237,199,108,0.55); }
+.stage__desc { margin: 0.55rem 0 0; color: var(--muted); font-size: 1.02rem; line-height: 1.55; max-width: 56ch; }
+.stage:hover .stage__name { color: var(--line); transition: color .4s var(--ease-out); }
 
 /* ── продукты/цены ── */
 .plans { padding: clamp(4rem, 10vh, 7rem) 0; }
