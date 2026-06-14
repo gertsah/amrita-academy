@@ -154,8 +154,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #amrita-thread.thread { transform: translateX(-50%) !important; opacity: 0.55; will-change: auto; }
-  .thread__line { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
+  #amrita-thread.thread { opacity: 0.6; will-change: auto; }
+  /* линию НЕ форсируем нарисованной — её прорисовку при скролле ведёт GSAP (это не «тряска») */
   .srv__no, .step__no { transform: none !important; }
 }
 

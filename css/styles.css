@@ -382,6 +382,7 @@ main#main, .foot { background: var(--bg); color: var(--text); position: relative
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition-duration: .01ms !important; }
   .mask__inner { transform: none !important; }
-  [data-reveal], .io-reveal { opacity: 1 !important; transform: none !important; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  /* .io-reveal НЕ форсируем — появление секций ведёт GSAP (мягко, без сдвига при reduced) */
   .flow__item:hover .flow__media img { transform: none !important; }
 }

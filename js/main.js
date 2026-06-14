@@ -49,8 +49,8 @@
     joinForm.reset();
   });
 
-  /* ── режим без анимаций ── */
-  if (reduced || typeof gsap === "undefined") {
+  /* ── нет библиотеки анимаций: показываем всё, простые якоря ── */
+  if (typeof gsap === "undefined") {
     document.querySelectorAll(".io-reveal").forEach(function (el) { el.classList.add("is-in"); });
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener("click", function (e) {
@@ -61,6 +61,8 @@
     });
     return;
   }
+  // reduced-motion: оставляем плавное ПОЯВЛЕНИЕ секций и прорисовку линии (без тряски —
+  // отключаем инерц-скролл и параллакс ниже). Так анимация появления работает у всех.
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -68,7 +70,7 @@
   // режим showcase: сайт открыт во фрейме видео-презентации — отдаём скролл родителю
   var showcase = /[?&]showcase\b/.test(location.search);
   var lenis = null;
-  if (typeof Lenis !== "undefined" && !showcase) {
+  if (typeof Lenis !== "undefined" && !showcase && !reduced) {
     lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
@@ -85,6 +87,9 @@
       else t.scrollIntoView({ behavior: "smooth" });
     });
   });
+
+  /* ── ХЕРО-ИНТРО + ПАРАЛЛАКС: только если движение разрешено (reduced-motion → пропускаем тряску) ── */
+  if (!reduced) {
 
   /* ── ИНТРО ХЕРО ── */
   gsap.set(".mask__inner", { yPercent: 115 });
@@ -146,8 +151,11 @@
     });
   }
 
+  } /* конец гейта !reduced (херо-интро + параллакс) */
+
   /* ── ПОЯВЛЕНИЕ СЕКЦИЙ ПРИ СКРОЛЛЕ: каждый блок плавно всплывает целиком ── */
   gsap.set(".io-reveal", { opacity: 1, y: 0 });     // снимаем стартовое CSS-скрытие — дальше анимирует GSAP на уровне секций
+  var revY = reduced ? 0 : 52;                       // при reduced-motion — только проявление, без сдвига
   gsap.utils.toArray("#main > section").forEach(function (sec) {
     var root = sec.querySelector(".wrap") || sec.querySelector(".join__inner") || sec;
     var items = Array.prototype.filter.call(root.children, function (c) {
@@ -155,12 +163,12 @@
     });
     if (!items.length) return;
     if (showcase) {
-      gsap.fromTo(items, { opacity: 0, y: 52 }, {
+      gsap.fromTo(items, { opacity: 0, y: revY }, {
         opacity: 1, y: 0, ease: "power2.out", stagger: 0.06,
         scrollTrigger: { trigger: sec, start: "top 90%", end: "top 55%", scrub: true }
       });
     } else {
-      gsap.fromTo(items, { opacity: 0, y: 52 }, {
+      gsap.fromTo(items, { opacity: 0, y: revY }, {
         opacity: 1, y: 0, duration: 1.0, ease: "power3.out", stagger: 0.08,
         scrollTrigger: { trigger: sec, start: "top 82%" }
       });
@@ -178,10 +186,12 @@
         strokeDashoffset: 0, ease: "none",
         scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: 0.6 }
       });
-      gsap.fromTo("#amrita-thread", { yPercent: -5 }, {
-        yPercent: 5, ease: "none",
-        scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: true }
-      });
+      if (!reduced) {                                  // лёгкий дрейф — только при разрешённом движении
+        gsap.fromTo("#amrita-thread", { yPercent: -5 }, {
+          yPercent: 5, ease: "none",
+          scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: true }
+        });
+      }
     }
   }
 
