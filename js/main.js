@@ -163,17 +163,46 @@
     }
   });
 
-  /* ── золотые нити (услуги, шаги): рисуются по мере скролла ── */
-  gsap.utils.toArray(".thread__path").forEach(function (path) {
-    if (!path.getTotalLength) return;
-    var len = path.getTotalLength();
-    if (!len) return;
-    var sec = path.closest("section");
-    gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-    gsap.to(path, {
-      strokeDashoffset: 0, ease: "none",
-      scrollTrigger: { trigger: sec, start: "top 80%", end: "bottom 72%", scrub: 0.6 }
+  /* ── ЕДИНАЯ ЗОЛОТАЯ НИТЬ: рисуется по прогрессу всей страницы + свой медленный слой ── */
+  var thread = document.querySelector("#amrita-thread .thread__line");
+  if (thread && thread.getTotalLength) {
+    var tlen = thread.getTotalLength();
+    if (tlen) {
+      gsap.set("#amrita-thread", { xPercent: -50 });           // центрирование под управлением GSAP
+      gsap.set(thread, { strokeDasharray: tlen, strokeDashoffset: tlen });
+      // 1) рисование: конец линии у текущей зоны взгляда
+      gsap.to(thread, {
+        strokeDashoffset: 0, ease: "none",
+        scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: 0.6 }
+      });
+      // 2) параллакс-слой нити: медленнее контента (~0.88x)
+      gsap.fromTo("#amrita-thread", { yPercent: -6 }, {
+        yPercent: 6, ease: "none",
+        scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: true }
+      });
+    }
+  }
+
+  // 3) встречный слой: крупные антиква-номера опережают скролл
+  gsap.utils.toArray(".srv__no, .step__no").forEach(function (n) {
+    var sec = n.closest("section");
+    gsap.fromTo(n, { y: 28 }, {
+      y: -28, ease: "none",
+      scrollTrigger: { trigger: sec, start: "top bottom", end: "bottom top", scrub: true }
     });
+  });
+
+  // 4) дальний фон у формы: halo плывёт и дышит
+  if (document.querySelector(".join__halo")) {
+    gsap.fromTo(".join__halo", { yPercent: -10, scale: 0.92 }, {
+      yPercent: 10, scale: 1.06, ease: "none",
+      scrollTrigger: { trigger: ".join", start: "top bottom", end: "bottom top", scrub: true }
+    });
+  }
+
+  // высота #main меняется при раскрытии FAQ — пересчитываем, чтобы конец нити не уплывал
+  document.querySelectorAll(".faq__item").forEach(function (d) {
+    d.addEventListener("toggle", function () { ScrollTrigger.refresh(); });
   });
 
   /* ── пересчёт после загрузки шрифтов/картинок ── */

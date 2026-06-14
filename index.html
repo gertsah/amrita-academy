@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" />
 
   <link rel="stylesheet" href="css/styles.css?v=14" />
-  <link rel="stylesheet" href="css/sell.css?v=3" />
+  <link rel="stylesheet" href="css/sell.css?v=4" />
 </head>
 
 <body>
@@ -91,21 +91,20 @@
   <!-- ░░░░░░░░░ ПРОДАЮЩЕЕ ТЕЛО · понятная воронка (зашёл → выбрал → купил) ░░░░░░░░░ -->
   <main id="main">
 
-    <!-- ═══ ЧТО РЕШИШЬ — услуги по пунктам + рисующаяся нить ═══ -->
+    <!-- ЕДИНАЯ ЗОЛОТАЯ НИТЬ · крупный минималистичный жест на весь #main -->
+    <svg id="amrita-thread" class="thread" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+      <path class="thread__line" fill="none" stroke="var(--line)" stroke-width="1.4"
+            stroke-linecap="round" vector-effect="non-scaling-stroke"
+            d="M50 0 C 12 60, 88 130, 50 190 C 12 250, 88 320, 50 380 C 14 445, 86 510, 50 575 C 16 640, 84 705, 50 770 C 18 835, 82 895, 50 1000"/>
+    </svg>
+
+    <!-- ═══ ЧТО РЕШИШЬ — услуги по пунктам ═══ -->
     <section class="services" id="outcomes">
       <div class="wrap">
         <p class="label io-reveal">Что меняется с практикой</p>
         <h2 class="h-sec io-reveal">Кундалини-йога решает то,<br/>что давно мешало жить</h2>
 
         <div class="services__body">
-          <!-- золотая нить: рисуется при скролле и огибает номера -->
-          <svg class="services__thread" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path class="thread__path"
-                  d="M50 0 C 80 8, 20 20, 50 33 C 80 46, 20 54, 50 67 C 80 80, 20 92, 50 100"
-                  fill="none" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round"
-                  vector-effect="non-scaling-stroke" />
-          </svg>
-
           <ol class="services__list">
             <li class="srv io-reveal"><span class="srv__no">01</span><span class="srv__txt">освободиться от тревоги и страха</span></li>
             <li class="srv io-reveal"><span class="srv__no">02</span><span class="srv__txt">снять стресс и напряжение</span></li>
@@ -208,13 +207,6 @@
         <p class="label io-reveal">Как начать</p>
         <h2 class="h-sec io-reveal">Три простых шага</h2>
         <div class="steps__flow">
-          <!-- нить, соединяющая шаги: рисуется при скролле -->
-          <svg class="steps__thread" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
-            <path class="thread__path"
-                  d="M1 10 C 18 2, 32 18, 50 10 C 68 2, 82 18, 99 10"
-                  fill="none" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round"
-                  vector-effect="non-scaling-stroke" />
-          </svg>
           <div class="steps__grid">
             <div class="step io-reveal"><span class="step__no">01</span><b>Выберите формат</b><p>Марафон, клуб или курс — что откликается.</p></div>
             <div class="step io-reveal"><span class="step__no">02</span><b>Оплатите онлайн</b><p>Безопасно, за пару минут.</p></div>
@@ -319,6 +311,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="js/main.js?v=14"></script>
+  <script src="js/main.js?v=15"></script>
 </body>
 </html>
