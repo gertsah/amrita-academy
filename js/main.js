@@ -49,9 +49,25 @@
     joinForm.reset();
   });
 
-  /* ── нет библиотеки анимаций: показываем всё, простые якоря ── */
+  /* ── ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ (IntersectionObserver — надёжно везде: без GSAP/Lenis/reduced) ──
+     Изначально элементы скрыты (CSS .io-reveal{opacity:0}); как только попадают в экран —
+     добавляем .is-in, и CSS их проявляет. Работает независимо от настроек анимации. */
+  (function () {
+    var els = document.querySelectorAll(".io-reveal");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(function (el) { el.classList.add("is-in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ── нет библиотеки анимаций: остаются только простые якоря ── */
   if (typeof gsap === "undefined") {
-    document.querySelectorAll(".io-reveal").forEach(function (el) { el.classList.add("is-in"); });
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener("click", function (e) {
         var id = a.getAttribute("href"); if (id.length < 2) return;
@@ -153,27 +169,7 @@
 
   } /* конец гейта !reduced (херо-интро + параллакс) */
 
-  /* ── ПОЯВЛЕНИЕ СЕКЦИЙ ПРИ СКРОЛЛЕ: каждый блок плавно всплывает целиком ── */
-  gsap.set(".io-reveal", { opacity: 1, y: 0 });     // снимаем стартовое CSS-скрытие — дальше анимирует GSAP на уровне секций
-  var revY = reduced ? 0 : 52;                       // при reduced-motion — только проявление, без сдвига
-  gsap.utils.toArray("#main > section").forEach(function (sec) {
-    var root = sec.querySelector(".wrap") || sec.querySelector(".join__inner") || sec;
-    var items = Array.prototype.filter.call(root.children, function (c) {
-      return !c.classList.contains("join__halo");   // фон формы не трогаем
-    });
-    if (!items.length) return;
-    if (showcase) {
-      gsap.fromTo(items, { opacity: 0, y: revY }, {
-        opacity: 1, y: 0, ease: "power2.out", stagger: 0.06,
-        scrollTrigger: { trigger: sec, start: "top 90%", end: "top 55%", scrub: true }
-      });
-    } else {
-      gsap.fromTo(items, { opacity: 0, y: revY }, {
-        opacity: 1, y: 0, duration: 1.0, ease: "power3.out", stagger: 0.08,
-        scrollTrigger: { trigger: sec, start: "top 82%" }
-      });
-    }
-  });
+  /* ── появление контента ведёт IntersectionObserver (см. выше) — здесь только нить/параллакс ── */
 
   /* ── ЗОЛОТАЯ НИТЬ: спокойно прорисовывается по мере скролла (появляется вместе со страницей) ── */
   var thread = document.querySelector("#amrita-thread .thread__line");
