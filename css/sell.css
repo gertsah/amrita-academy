@@ -127,33 +127,18 @@
 
 #amrita-thread.thread {
   position: absolute; top: 0; left: 50%;
-  width: clamp(280px, 46vw, 760px);   /* крупная амплитуда, но не во всю ширину текста */
+  width: clamp(200px, 26vw, 420px);   /* тонкий центральный изгиб, не лезет под текст */
   height: 100%;                       /* на весь #main (#main уже position:relative) */
   transform: translateX(-50%);        /* fallback-центрирование; в анимации GSAP ставит xPercent:-50 */
   z-index: 0;                         /* ПОД контентом секций */
   overflow: visible; pointer-events: none;
-  opacity: 0.92; will-change: transform;
+  opacity: 0.75; will-change: transform;
 }
 .thread__svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.thread__ghost { opacity: 0.20; }                                   /* призрачная трасса всего пути */
+.thread__ghost { opacity: 0.16; }                                   /* призрачная трасса всего пути */
 .thread__line {
   will-change: stroke-dashoffset;
-  filter: drop-shadow(0 0 4px rgba(237,199,108,0.75))               /* мягкое золотое свечение */
-          drop-shadow(0 0 10px rgba(201,162,75,0.40));
-}
-
-/* бегущий огонёк на острие линии — позиционируется JS, пульсирует свечением */
-.thread__comet {
-  position: absolute; top: 0; left: 0; width: 16px; height: 16px; margin: -8px 0 0 -8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #FFF6DC 0%, #F0CE78 42%, rgba(201,162,75,0) 72%);
-  box-shadow: 0 0 12px 4px rgba(237,199,108,0.85), 0 0 30px 9px rgba(201,162,75,0.45);
-  opacity: 0; transition: opacity .3s ease; pointer-events: none;
-}
-.thread__comet.is-on { opacity: 1; animation: cometPulse 1.7s ease-in-out infinite; }
-@keyframes cometPulse {
-  0%, 100% { box-shadow: 0 0 11px 3px rgba(237,199,108,0.8),  0 0 24px 6px rgba(201,162,75,0.40); }
-  50%      { box-shadow: 0 0 18px 7px rgba(237,199,108,0.98), 0 0 44px 14px rgba(201,162,75,0.58); }
+  filter: drop-shadow(0 0 3px rgba(237,199,108,0.55));              /* мягкое золотое свечение */
 }
 
 /* контент гарантированно НАД нитью (секции прозрачны, нить проступает) */
@@ -165,13 +150,12 @@
 .srv__no, .step__no { display: inline-block; }
 
 @media (max-width: 680px) {
-  #amrita-thread.thread { width: 64vw; opacity: 0.4; }  /* почти прямая тонкая ось */
+  #amrita-thread.thread { width: 44vw; opacity: 0.5; }  /* почти прямая тонкая ось */
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #amrita-thread.thread { transform: translateX(-50%) !important; opacity: 0.6; will-change: auto; }
+  #amrita-thread.thread { transform: translateX(-50%) !important; opacity: 0.55; will-change: auto; }
   .thread__line { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
-  .thread__comet { display: none !important; }
   .srv__no, .step__no { transform: none !important; }
 }
 

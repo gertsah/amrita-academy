@@ -146,108 +146,43 @@
     });
   }
 
-  /* ── ЗАГОЛОВКИ: киношный clip-reveal (раскрытие сверху вниз) ── */
-  var headSel = ".h-sec, .join__title, .founder__name";
-  gsap.utils.toArray(headSel).forEach(function (h) {
-    gsap.fromTo(h,
-      { clipPath: "inset(0 0 100% 0)", yPercent: 14, opacity: 0 },
-      {
-        clipPath: "inset(0 0 0% 0)", yPercent: 0, opacity: 1, duration: 1.1, ease: "power3.out",
-        scrollTrigger: { trigger: h, start: "top 86%" }
-      }
-    );
-  });
-
-  /* ── ЭТАПЫ ПУТИ: текст появляется ступенями (строка → точка → имя-вайп → описание) ── */
-  gsap.utils.toArray(".stage").forEach(function (st) {
-    var nm = st.querySelector(".stage__name");
-    var dot = st.querySelector(".stage__dot");
-    var desc = st.querySelector(".stage__desc");
-    var tl = gsap.timeline({ scrollTrigger: { trigger: st, start: "top 88%" } });
-    tl.fromTo(st, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, 0);
-    if (dot) tl.fromTo(dot, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(2)" }, 0.1);
-    if (nm) tl.fromTo(nm, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power3.out" }, 0.18);
-    if (desc) tl.fromTo(desc, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 0.32);
-  });
-
-  /* ── ПОЯВЛЕНИЕ ТЕКСТА И ПЛАШЕК НА СКРОЛЛЕ ── */
-  gsap.utils.toArray(".io-reveal").forEach(function (el) {
-    if (el.matches(headSel)) return;               // заголовки обработаны отдельным clip-reveal
-    gsap.set(el, { opacity: 1, y: 0 });            // снимаем стартовое скрытие из CSS
+  /* ── ПОЯВЛЕНИЕ СЕКЦИЙ ПРИ СКРОЛЛЕ: каждый блок плавно всплывает целиком ── */
+  gsap.set(".io-reveal", { opacity: 1, y: 0 });     // снимаем стартовое CSS-скрытие — дальше анимирует GSAP на уровне секций
+  gsap.utils.toArray("#main > section").forEach(function (sec) {
+    var root = sec.querySelector(".wrap") || sec.querySelector(".join__inner") || sec;
+    var items = Array.prototype.filter.call(root.children, function (c) {
+      return !c.classList.contains("join__halo");   // фон формы не трогаем
+    });
+    if (!items.length) return;
     if (showcase) {
-      // showcase: привязываем к позиции скролла — детерминированно для покадрового рендера
-      gsap.fromTo(el, { opacity: 0, y: 48 }, {
-        opacity: 1, y: 0, ease: "power2.out",
-        scrollTrigger: { trigger: el, start: "top 92%", end: "top 62%", scrub: true }
+      gsap.fromTo(items, { opacity: 0, y: 52 }, {
+        opacity: 1, y: 0, ease: "power2.out", stagger: 0.06,
+        scrollTrigger: { trigger: sec, start: "top 90%", end: "top 55%", scrub: true }
       });
     } else {
-      gsap.from(el, {
-        opacity: 0, y: 48, duration: 1.15, ease: "expo.out",
-        scrollTrigger: { trigger: el, start: "top 88%" }
+      gsap.fromTo(items, { opacity: 0, y: 52 }, {
+        opacity: 1, y: 0, duration: 1.0, ease: "power3.out", stagger: 0.08,
+        scrollTrigger: { trigger: sec, start: "top 82%" }
       });
     }
   });
 
-  /* ── ЕДИНАЯ ЗОЛОТАЯ НИТЬ: рисуется по странице + бегущий огонёк + свой медленный слой ── */
+  /* ── ЗОЛОТАЯ НИТЬ: спокойно прорисовывается по мере скролла (появляется вместе со страницей) ── */
   var thread = document.querySelector("#amrita-thread .thread__line");
-  var threadSvg = document.querySelector("#amrita-thread .thread__svg");
-  var comet = document.querySelector("#amrita-thread .thread__comet");
   if (thread && thread.getTotalLength) {
     var tlen = thread.getTotalLength();
     if (tlen) {
-      var cw = 0, ch = 0;
-      var measureThread = function () {
-        if (threadSvg) { var r = threadSvg.getBoundingClientRect(); cw = r.width; ch = r.height; }
-      };
-      measureThread();
-      ScrollTrigger.addEventListener("refresh", measureThread);
-
-      gsap.set("#amrita-thread", { xPercent: -50 });           // центрирование под управлением GSAP
+      gsap.set("#amrita-thread", { xPercent: -50 });
       gsap.set(thread, { strokeDasharray: tlen, strokeDashoffset: tlen });
-
-      // 1) рисование линии + позиция бегущего огонька на её острие
       gsap.to(thread, {
         strokeDashoffset: 0, ease: "none",
-        scrollTrigger: {
-          trigger: "#main", start: "top top", end: "bottom bottom", scrub: 0.6,
-          onUpdate: function (self) {
-            if (!comet) return;
-            var pr = self.progress;
-            if (pr > 0.004 && pr < 0.996 && cw) {
-              var pt = thread.getPointAtLength(pr * tlen);   // координаты в системе viewBox (0-100 × 0-1000)
-              comet.style.left = (pt.x / 100 * cw) + "px";
-              comet.style.top = (pt.y / 1000 * ch) + "px";
-              comet.classList.add("is-on");
-            } else {
-              comet.classList.remove("is-on");
-            }
-          }
-        }
+        scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: 0.6 }
       });
-
-      // 2) параллакс-слой нити: медленнее контента (~0.88x)
-      gsap.fromTo("#amrita-thread", { yPercent: -6 }, {
-        yPercent: 6, ease: "none",
+      gsap.fromTo("#amrita-thread", { yPercent: -5 }, {
+        yPercent: 5, ease: "none",
         scrollTrigger: { trigger: "#main", start: "top top", end: "bottom bottom", scrub: true }
       });
     }
-  }
-
-  // 3) встречный слой: крупные антиква-номера опережают скролл
-  gsap.utils.toArray(".stage__no, .step__no").forEach(function (n) {
-    var sec = n.closest("section");
-    gsap.fromTo(n, { y: 28 }, {
-      y: -28, ease: "none",
-      scrollTrigger: { trigger: sec, start: "top bottom", end: "bottom top", scrub: true }
-    });
-  });
-
-  // 4) дальний фон у формы: halo плывёт и дышит
-  if (document.querySelector(".join__halo")) {
-    gsap.fromTo(".join__halo", { yPercent: -10, scale: 0.92 }, {
-      yPercent: 10, scale: 1.06, ease: "none",
-      scrollTrigger: { trigger: ".join", start: "top bottom", end: "bottom top", scrub: true }
-    });
   }
 
   // высота #main меняется при раскрытии FAQ — пересчитываем, чтобы конец нити не уплывал
